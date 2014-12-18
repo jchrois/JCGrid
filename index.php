@@ -1,12 +1,6 @@
 <?php
 include("./db_class.php");
 
-
-
-
-
-
-
 try    {
     /*** query the database ***/
     $db = DB::getInstance();
