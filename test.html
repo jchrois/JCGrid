@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>test</title>
+
+</head>
+
+<body>
+<script>
+	request = new XMLHttpRequest();
+	request.open('GET', 'index.php', true);
+
+	request.onload = function() {
+	  if (request.status >= 200 && request.status < 400){
+	    // Success!
+	    console.log(request.responseText);
+	    //data = JSON.parse(request.responseText);
+	  } else {
+	    // We reached our target server, but it returned an error
+
+	  }
+	};
+
+	request.onerror = function() {
+	  // There was a connection error of some sort
+	};
+
+	request.send();
+
+</script>
+</body>
+</html>
+
