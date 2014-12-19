@@ -8,18 +8,54 @@
 </head>
 
 <body>
+
 <script>
+
 	request = new XMLHttpRequest();
-	request.open('GET', 'index.php', true);
+
+	var name = "";
+
+	var input = document.createElement("input");
+	input.type = "search";
+	document.body.appendChild(input);
+
+	var textBox = document.createElement("div");
+	document.body.appendChild(textBox);
+	textBox.innerHTML = "Found nothing";
+
+	input.addEventListener("input", onSearchChange);
+
+	function onSearchChange() {
+		name = input.value;
+		console.log('request: ' + name);
+
+		request.open('GET', 'datamanage.php?t='+Math.random()+"&name="+name, true);
+		request.send();
+
+	}
+
+
+
+	var data;
 
 	request.onload = function() {
 	  if (request.status >= 200 && request.status < 400){
-	    // Success!
-	    console.log(request.responseText);
-	    //data = JSON.parse(request.responseText);
-	  } else {
-	    // We reached our target server, but it returned an error
+	    
+	    data = JSON.parse(request.responseText);
+	    if(data.length > 0) {
+		    var str = "";
+		    for(var i=0; i<data.length; ++i) {
+		    	str += data[i].animal_type + " ";
+		    }
 
+		    textBox.innerHTML = str;
+		} else {
+			console.log("No data found");
+			textBox.innerHTML = "Found nothing";
+		}
+
+	  } else {
+	    // server returned error
 	  }
 	};
 
@@ -27,7 +63,7 @@
 	  // There was a connection error of some sort
 	};
 
-	request.send();
+	//request.send();
 
 </script>
 </body>
