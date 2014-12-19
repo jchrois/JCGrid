@@ -1,0 +1,24 @@
+/* styles.css */
+
+
+body {
+	margin: 0;
+	background: #eee; color: #888;
+	font-family: "Helvetica", sans-serif;
+	font-size: 11px;
+}
+
+
+
+
+
+
+.gui_element {
+	background: #ccc;
+}
+
+
+#healthbar {
+	background: #ffffff;
+	overflow: hidden;
+}
