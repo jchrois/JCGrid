@@ -10,15 +10,18 @@ body {
 
 
 
-
-
-
 .gui_element {
 	background: #ccc;
 }
 
 
 #healthbar {
+	background: #ffffff;
+	overflow: hidden;
+}
+
+
+#inventory {
 	background: #ffffff;
 	overflow: hidden;
 }

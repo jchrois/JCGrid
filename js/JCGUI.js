@@ -15,7 +15,7 @@ JCGUI.prototype.createElement = function() {
 JCGUI.prototype.updateAll = function() {
 	var len = this.elements.length;
 	for(var i=0; i<len; ++i) {
-		this.elements[i].update();
+		this.elements[i].update(false);
 	}
 };
 
@@ -29,6 +29,8 @@ JCGUI = new JCGUI();
 
 var JCGUIElement = function() {
 	
+	this.children = [];
+
 	this.x = 0;
 	this.y = 0;
 	this.width = 100;
@@ -50,15 +52,21 @@ var JCGUIElement = function() {
 
 };
 
+
 JCGUIElement.prototype.addClass = function(classname) {
 	this.classes.push(classname);
 }
 
+JCGUIElement.prototype.addChild = function(child) {
+	this.children.push(child);
+}
 
-JCGUIElement.prototype.update = function() {
+
+JCGUIElement.prototype.update = function(updateChildren) {
+	updateChildren = typeof updateChildren !== 'undefined' ? updateChildren : true;
+
 
 	var classes_str = this.classes.join();
-	console.log(classes_str);
 	this.dom.className = classes_str;
 
 	this.dom.style.width = this.width + "px";
@@ -73,6 +81,15 @@ JCGUIElement.prototype.update = function() {
 	} else {
 		this.dom.id = "JCGUIElement_" + this.idnum;
 	}
+
+	if(typeof updateChildren != 'undefined' && updateChildren==true) {
+		console.log('updateChildren');
+		for(var i=0; i<this.children.length; ++i) {
+			this.children[i].update();
+		}
+	}
+
+
 
 }
 
