@@ -1,5 +1,14 @@
 /* JCGrid_main.js */
 
+/*
+TODO
+
+GUI Baseline grid
+Element snap to grid
+
+*/
+
+
 
 /* -------------------------------------------- */
 
@@ -8,6 +17,7 @@ window.onload = setup();
 var ww;
 var wh;
 
+var on3D;
 var scene, camera, renderer;
 var light;
 
@@ -21,20 +31,7 @@ function setup() {
 
 	window.addEventListener('resize', onWindowResize, false);
 
-	scene = new THREE.Scene();
-	camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.1, 1000 );
-	renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
-
-	renderer.setSize( window.innerWidth, window.innerHeight );
-	renderer.domElement.id = "canvas3D";
-	renderer.domElement.style.position = "absolute";
-	//document.body.appendChild( renderer.domElement );
-	renderer.setClearColor(0xffffff, 0);
-
-	light = new THREE.PointLight( 0xffffff, 1);
-	light.position.set( 100, 50, 100 );
-	scene.add( light );
-
+	create3D();
 	createGUI();
 	render();
 
@@ -43,11 +40,31 @@ function setup() {
 
 function render() {
 	requestAnimationFrame(render);
-	renderer.render(scene, camera);
-
+	if(on3D) {
+		renderer.render(scene, camera);	
+	}
+	
 }
 
 
+function create3D() {
+	scene = new THREE.Scene();
+	camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.1, 1000 );
+	renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
+
+	renderer.setSize( window.innerWidth, window.innerHeight );
+	renderer.domElement.id = "canvas3D";
+	renderer.domElement.style.position = "absolute";
+	document.body.appendChild( renderer.domElement );
+	renderer.setClearColor(0x000000, 0);
+
+	light = new THREE.PointLight( 0xffffff, 1);
+	light.position.set( 100, 50, 100 );
+	scene.add( light );
+
+	on3D = true;
+
+}
 
 
 
@@ -67,13 +84,14 @@ function createGUI() {
 	inventory.html = "Inventory";
 
 	inventory_bnt1 = JCGUI.createElement();
+	inventory_bnt1.html = "bnt1";
 	inventory_bnt1.id = "inventory_bnt1";
-
 	inventory.addChild(inventory_bnt1);
 
 	JCGUI.updateAll();
 
 	resizeGUI();
+
 }
 
 function resizeGUI() {
@@ -83,10 +101,12 @@ function resizeGUI() {
 	healthbar.y = wh*0.05;
 
 	inventory.width = 300;
-	inventory.x = ww*0.95 - inventory.width;
-	inventory.y = wh*0.95 - inventory.height;
+	inventory.height = 300;
 
-	inventory_bnt1.x = 10;
+	
+	inventory.setXRel(0.05);
+	inventory.setYRel(0.70, true);
+	inventory_bnt1.setXRel(0.5, true);
 
 	JCGUI.updateAll();
 
@@ -101,10 +121,12 @@ function onWindowResize(){
 	wh = window.innerHeight;
 
 	resizeGUI();
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize( window.innerWidth, window.innerHeight );   
+	
+	if(on3D) { 
+	    camera.aspect = window.innerWidth / window.innerHeight;
+	    camera.updateProjectionMatrix();
+	    renderer.setSize( window.innerWidth, window.innerHeight );   
+	}
 
 }
 

@@ -29,6 +29,7 @@ JCGUI = new JCGUI();
 
 var JCGUIElement = function() {
 	
+	this.GUIParent;	
 	this.children = [];
 
 	this.x = 0;
@@ -40,8 +41,6 @@ var JCGUIElement = function() {
 	this.id;
 	this.idnum;
 	this.classes = [];
-	this.html = "";
-
 	this.addClass("gui_element");
 
 	this.dom = document.createElement('div');
@@ -57,14 +56,50 @@ JCGUIElement.prototype.addClass = function(classname) {
 	this.classes.push(classname);
 }
 
+
 JCGUIElement.prototype.addChild = function(child) {
+	
+	this.dom.appendChild(child.dom);
+	child.GUIParent = this;
 	this.children.push(child);
+
 }
+
+
+JCGUIElement.prototype.setXRel= function(percent, subself) {
+	var pw;
+
+	if(typeof this.GUIParent !== 'undefined') {
+		pw = this.GUIParent.width;
+	} else {
+		pw = window.innerWidth;
+	}
+
+	var minus = (subself) ? this.width/2 : 0;
+	this.x = (pw*percent)-minus;
+	
+
+}
+
+JCGUIElement.prototype.setYRel= function(percent, subself) {
+	var pw;
+	
+	if(typeof this.GUIParent !== 'undefined') {
+		pw = this.GUIParent.height;
+	} else {
+		pw = window.innerHeight;
+	}
+
+	var minus = (subself) ? this.height/2 : 0;
+	this.y = (pw*percent)-minus;
+	
+
+}
+
 
 
 JCGUIElement.prototype.update = function(updateChildren) {
 	updateChildren = typeof updateChildren !== 'undefined' ? updateChildren : true;
-
 
 	var classes_str = this.classes.join();
 	this.dom.className = classes_str;
@@ -73,8 +108,6 @@ JCGUIElement.prototype.update = function(updateChildren) {
 	this.dom.style.height = this.height + "px";
 	this.dom.style.left = this.x + "px";
 	this.dom.style.top = this.y + "px";
-
-	this.dom.innerHTML = this.html;
 	
 	if (typeof(this.id) != "undefined") {
 		this.dom.id = this.id;
@@ -82,12 +115,14 @@ JCGUIElement.prototype.update = function(updateChildren) {
 		this.dom.id = "JCGUIElement_" + this.idnum;
 	}
 
+	/*
 	if(typeof updateChildren != 'undefined' && updateChildren==true) {
 		console.log('updateChildren');
 		for(var i=0; i<this.children.length; ++i) {
 			this.children[i].update();
 		}
 	}
+	*/
 
 
 
