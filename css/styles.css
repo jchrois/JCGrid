@@ -12,20 +12,15 @@ body {
 	overflow: hidden;
 }
 
-img {
-	/*
-    max-width: 100%;
-    height: auto;
-	*/
-}
-
 p { 
 	margin: 0;
 	font-family: "proxima-nova";
 }
 
 small {
-	font-family: "proxima-nova";
+	font-family: "motor";
+	text-transform: uppercase;
+	letter-spacing: 1em;
 }
 
 h1, h2, h3, h4 {
@@ -33,7 +28,7 @@ h1, h2, h3, h4 {
 	
 	font-family: "motor";
 	text-transform: uppercase;
-	letter-spacing: 20px; 
+	letter-spacing: 0.8em; 
 }
 
 div {

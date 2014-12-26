@@ -15,7 +15,7 @@
 </head>
 
 <body>
-
+	<!--
 	<div id="txt">
 		<h2>Thin air</h2>
 		<p>
@@ -41,6 +41,7 @@
 			<img src="http://www.mountainsoftravelphotos.com/Gauri%20Shankar%20and%20Menlungtse/Best/slides/Rolwaling%2098%20Gauri%20Shankar%20From%20Mountain%20Flight%202000.jpg">
 		</div>
 	</div>
+	-->
 
 	<script src="./js/THREE/three.min.js"></script>
 	<script src="./js/JCGUI.js"></script>
