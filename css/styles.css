@@ -1,12 +1,75 @@
 /* styles.css */
 
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+ }
 
 body {
+	width: 100%; height: 100%;
 	margin: 0;
-	background: #eee; color: #888;
-	font-family: "Helvetica", sans-serif;
-	font-size: 11px;
+	background: #eee; color: #999;
+	font-size: 16px;
+	overflow: hidden;
 }
+
+img {
+	/*
+    max-width: 100%;
+    height: auto;
+	*/
+}
+
+p { 
+	margin: 0;
+	font-family: "proxima-nova";
+}
+
+small {
+	font-family: "proxima-nova";
+}
+
+h1, h2, h3, h4 {
+	margin: 0;
+	
+	font-family: "motor";
+	text-transform: uppercase;
+	letter-spacing: 20px; 
+}
+
+div {
+	position: absolute;
+}
+
+
+div.image {
+	height: 300px;
+	overflow: hidden;
+}
+
+div.image img {
+	max-width: 150%;
+    height: auto;
+    margin: -15% 0 0 -30%;
+}
+
+
+#grid_canvas {
+
+	position: absolute;
+	z-index: 100;
+	opacity: 0.1;
+	pointer-events: none;
+
+}
+
+
+
+
+#txt {
+	background: #ffffff;
+	overflow: hidden;
+}
+
 
 
 
